@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dr4x0n - Kiberxavfsizlik Bilimlar Bazasi</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔒</text></svg>">
+    <style>
+        /* ... oldingi CSS kodlari o'zgarishsiz qoladi ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0e17;
+            color: #e0e0e0;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 184, 148, 0.1) 0%, transparent 20%);
+        }
+        
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e2a3a;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 28px;
+            color: #00b894;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00b894, #0984e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            color: #b2bec3;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover {
+            color: #00b894;
+            background-color: rgba(0, 184, 148, 0.1);
+        }
+        
+        .main-container {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(90deg, #00b894, #0984e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .page-subtitle {
+            color: #b2bec3;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 18px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        
+        .search-section {
+            background-color: #1a2332;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            border: 1px solid #2d3746;
+        }
+        
+        .search-title {
+            color: #00b894;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .topic-card {
+            background-color: rgba(26, 35, 50, 0.8);
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 4px solid #0984e3;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            border-left-color: #00b894;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .topic-card.advanced {
+            border-left-color: #e17055;
+        }
+        
+        .topic-card.intermediate {
+            border-left-color: #fdcb6e;
+        }
+        
+        .topic-card.beginner {
+            border-left-color: #00b894;
+        }
+        
+        .topic-category {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .category-beginner {
+            background-color: rgba(0, 184, 148, 0.2);
+            color: #00b894;
+        }
+        
+        .category-intermediate {
+            background-color: rgba(253, 203, 110, 0.2);
+            color: #fdcb6e;
+        }
+        
+        .category-advanced {
+            background-color: rgba(225, 112, 85, 0.2);
+            color: #e17055;
+        }
+        
+        .topic-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .topic-description {
+            color: #b2bec3;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .info-button {
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-button:hover {
+            background-color: #00b894;
+        }
+        
+        .result-page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .back-button {
+            background-color: #2d3746;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #0984e3;
+        }
+        
+        .result-header {
+            background: linear-gradient(90deg, #1a2332, #0a0e17);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 6px solid #00b894;
+        }
+        
+        .result-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .result-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: #b2bec3;
+            font-size: 14px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .result-content {
+            background-color: #1a2332;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .content-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            color: #00b894;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2d3746;
+        }
+        
+        .content-text {
+            color: #e0e0e0;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .content-list {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .content-list li {
+            margin-bottom: 10px;
+            color: #b2bec3;
+            line-height: 1.6;
+        }
+        
+        .warning-box {
+            background-color: rgba(225, 112, 85, 0.1);
+            border-left: 4px solid #e17055;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .tip-box {
+            background-color: rgba(0, 184, 148, 0.1);
+            border-left: 4px solid #00b894;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .footer {
+            margin-top: 80px;
+            padding: 30px;
+            text-align: center;
+            color: #636e72;
+            font-size: 14px;
+            border-top: 1px solid #1e2a3a;
+        }
+        
+        .cyber-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            color: #00b894;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #636e72;
+            margin-top: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #b2bec3;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .social-link:hover {
+            background-color: rgba(0, 184, 148, 0.2);
+            color: #00b894;
+            transform: translateY(-2px);
+        }
+        
+        .social-icon {
+            font-size: 20px;
+        }
+        
+        .social-telegram {
+            color: #0088cc;
+        }
+        
+        .social-instagram {
+            color: #e4405f;
+        }
+        
+        .social-youtube {
+            color: #ff0000;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cyber-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .result-content {
+                padding: 20px;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo" id="homeLink">
+            <div class="logo-icon">🔒</div>
+            <div class="logo-text">dr4x0n</div>
+        </a>
+        <nav class="nav-links">
+            <a href="#" class="nav-link" id="navHome">Bosh sahifa</a>
+            <a href="#" class="nav-link" id="navArticles">Maqolalar</a>
+            <a href="#" class="nav-link" id="navTools">Vositalar</a>
+            <a href="#" class="nav-link" id="navTutorials">Darslar</a>
+        </nav>
+    </header>
+    
+    <!-- Asosiy sahifa (mavzular ro'yxati) -->
+    <main class="main-container" id="mainPage">
+        <h1 class="page-title">dr4x0n Kiberxavfsizlik Bilimlar Bazasi</h1>
+        <p class="page-subtitle">Kiberxavfsizlik bo'yicha 1000+ ta mavzu, darslik, amaliyot va vositalar. Quyidagi mavzulardan birini tanlang yoki o'zingizni qiziqtirgan mavzuni toping.</p>
+        
+        <div class="search-section">
+            <h2 class="search-title">Mavzular bo'yicha qidirish</h2>
+            <div class="topics-grid" id="topicsGrid">
+                <!-- Mavzular JavaScript orqali yuklanadi -->
+            </div>
+        </div>
+    </main>
+    
+    <!-- Natija sahifasi -->
+    <div class="main-container result-page" id="resultPage">
+        <button class="back-button" id="backButton">← Orqaga</button>
+        
+        <div class="result-header" id="resultHeader">
+            <!-- Natija sarlavhasi JavaScript orqali yuklanadi -->
+        </div>
+        
+        <div class="result-content" id="resultContent">
+            <!-- Natija kontenti JavaScript orqali yuklanadi -->
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="cyber-stats">
+            <div class="stat">
+                <div class="stat-value">1000+</div>
+                <div class="stat-label">Kiberxavfsizlik mavzulari</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">500+</div>
+                <div class="stat-label">Amaliy darslar</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">Xavfsizlik vositalari</div>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://t.me/dr4x0n_uz" target="_blank" class="social-link">
+                <span class="social-icon">📱</span>
+                <span>Telegram: @dr4x0n_uz</span>
+            </a>
+            <a href="https://instagram.com/dr4x0n_hack" target="_blank" class="social-link">
+                <span class="social-icon">📸</span>
+                <span>Instagram: dr4x0n_hack</span>
+            </a>
+            <a href="https://youtube.com/dr4x0n_uz" target="_blank" class="social-link">
+                <span class="social-icon">🎬</span>
+                <span>YouTube: dr4x0n_uz</span>
+            </a>
+        </div>
+        
+        <p style="margin-top: 30px;">© 2023 dr4x0n - Barcha huquqlar himoyalangan. Faqat ta'lim maqsadlarida.</p>
+        <p style="margin-top: 10px; font-size: 12px;">Bu platforma kiberxavfsizlik mutaxassislari, tadqiqotchilar va o'quvchilar uchun mo'ljallangan</p>
+        <p style="margin-top: 10px; font-size: 12px; color: #00b894;">💡 Yangi mavzular har hafta qo'shiladi! Bizni ijtimoiy tarmoqlarda kuzatib boring.</p>
+    </footer>
+
+    <script>
+        // Kiberxavfsizlik mavzulari ma'lumotlari
+        const cyberSecurityTopics = [
+            {
+                id: 1,
+                title: "Phishing hujumlari va himoya",
+                category: "beginner",
+                description: "Phishing hujumlarining turlari, qanday ishlashi va qanday himoya qilish kerakligi haqida batafsil ma'lumot.",
+                readTime: "8 daqiqa",
+                level: "Boshlang'ich"
+            },
+            {
+                id: 2,
+                title: "Parol xavfsizligi va menejmenti",
+                category: "beginner", 
+                description: "Kuchli parollar yaratish, ularni saqlash va parol menejerlaridan foydalanish bo'yicha qo'llanma.",
+                readTime: "10 daqiqa",
+                level: "Boshlang'ich"
+            },
+            {
+                id: 3,
+                title: "Ransomware: Tahdid va himoya",
+                category: "intermediate",
+                description: "Ransomware hujumlarining mexanizmlari, tarqalish yo'llari va hujumdan keyin nima qilish kerakligi.",
+                readTime: "15 daqiqa", 
+                level: "O'rta"
+            },
+            {
+                id: 4,
+                title: "2-qadamli autentifikatsiya (2FA)",
+                category: "beginner",
+                description: "Ikki bosqichli autentifikatsiya nima va u qanday sizning hisoblaringizni himoya qiladi.",
+                readTime: "6 daqiqa",
+                level: "Boshlang'ich"
+            },
+            {
+                id: 5,
+                title: "Tarmoq xavfsizligi asoslari",
+                category: "intermediate",
+                description: "Uy va ofis tarmoqlarini himoya qilish, firewall sozlamalari va xavfsiz WiFi konfiguratsiyasi.",
+                readTime: "12 daqiqa",
+                level: "O'rta"
+            },
+            {
+                id: 6,
+                title: "Shifrlash (Encryption) texnologiyalari",
+                category: "intermediate",
+                description: "Ma'lumotlarni shifrlashning turli usullari, SSL/TLS protokollari va end-to-end shifrlash.",
+                readTime: "18 daqiqa",
+                level: "O'rta"
+            },
+            {
+                id: 7,
+                title: "Malware tahlili asoslari",
+                category: "advanced",
+                description: "Zararli dasturlarni aniqlash, tahlil qilish va zararsizlantirish usullari.",
+                readTime: "25 daqiqa",
+                level: "Ilg'or"
+            },
+            {
+                id: 8,
+                title: "Zaifliklar skanerlash",
+                category: "advanced",
+                description: "Tizimlardagi zaifliklarni aniqlash, ularni baholash va yopish metodologiyalari.",
+                readTime: "20 daqiqa",
+                level: "Ilg'or"
+            },
+            {
+                id: 9,
+                title: "Social Engineering usullari",
+                category: "intermediate",
+                description: "Ijtimoiy muhandislik hujumlarining psixologik asoslari va ularga qarshi kurashish.",
+                readTime: "14 daqiqa",
+                level: "O'rta"
+            },
+            {
+                id: 10,
+                title: "Bulut xavfsizligi",
+                category: "intermediate",
+                description: "Bulut xizmatlarida ma'lumotlarni himoya qilish, konfiguratsiya xavfsizligi va monitoring.",
+                readTime: "16 daqiqa",
+                level: "O'rta"
+            },
+            {
+                id: 11,
+                title: "IoT qurilmalari xavfsizligi",
+                category: "intermediate",
+                description: "Internet of Things qurilmalarining xavfsizlik kamchiliklari va ularni himoya qilish usullari.",
+                readTime: "12 daqiqa",
+                level: "O'rta"
+            },
+            {
+                id: 12,
+                title: "Pentest (Penetration Testing) asoslari",
+                category: "advanced",
+                description: "Xavfsizlik testlarini o'tkazish metodologiyasi, vositalar va etik jihatlar.",
+                readTime: "30 daqiqa",
+                level: "Ilg'or"
+            }
+        ];
+
+        // Mavzular uchun batafsil ma'lumotlar (BARCHA 12 TA MAVZU UCHUN TO'LDIRILGAN)
+        const topicDetails = {
+            1: {
+                title: "Phishing hujumlari va himoya",
+                category: "Phishing & Social Engineering",
+                readTime: "8 daqiqa",
+                level: "Boshlang'ich",
+                lastUpdated: "2023-10-15",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Phishing nima?</h3>
+                        <p class="content-text">Phishing - bu hujumchi tomonidan foydalanuvchilarni aldash va ularning shaxsiy ma'lumotlarini (login, parol, karta raqamlari) olish uchun ishlatiladigan hujum turi. Hujumchi odatda haqiqiy tashkilot (bank, ijtimoiy tarmoq, xizmat) nomidan soxta elektron pochta yoki veb-sahifa yaratadi.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Phishing turlari</h3>
+                        <ul class="content-list">
+                            <li><strong>Email Phishing</strong> - Eng keng tarqalgan turi. Soxta elektron pochta orqali</li>
+                            <li><strong>Spear Phishing</strong> - Ma'lum bir shaxs yoki tashkilotga qaratilgan aniq hujum</li>
+                            <li><strong>Whaling</strong> - Yuqori martabali rahbarlarga qaratilgan phishing</li>
+                            <li><strong>Smishing</strong> - SMS xabarlar orqali amalga oshiriladi</li>
+                            <li><strong>Vishing</strong> - Telefon qo'ng'iroqlari orqali amalga oshiriladi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> 2023-yil statistikasiga ko'ra, phishing hujumlari 65% ga o'sgan. Har 99 ta elektron pochta xabaridan 1 tasi phishing hujumi bo'lishi mumkin.
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Qanday himoya qilish kerak?</h3>
+                        <ul class="content-list">
+                            <li>Noma'lum manbalardan kelgan elektron pochta havolalarini bosmang</li>
+                            <li>URL manzilini har doim tekshiring (https va haqiqiy domen nomi)</li>
+                            <li>2-qadamli autentifikatsiyani yoqing</li>
+                            <li>Shubhali elektron pochta xabarlarini spam sifatida belgilang</li>
+                            <li>Muntazam ravishda parollarni yangilang</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Agar phishing elektron pochtasini oldingiz, uni kompaniyaning IT xavfsizlik bo'limiga yoki CERT tashkilotiga xabar qiling.
+                    </div>
+                `
+            },
+            2: {
+                title: "Parol xavfsizligi va menejmenti",
+                category: "Account Security",
+                readTime: "10 daqiqa", 
+                level: "Boshlang'ich",
+                lastUpdated: "2023-11-05",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Kuchli parol nima?</h3>
+                        <p class="content-text">Kuchli parol - bu taxmin qilish yoki buzish qiyin bo'lgan parol. U kamida 12 ta belgidan iborat bo'lishi va quyidagilarni o'z ichiga olishi kerak:</p>
+                        <ul class="content-list">
+                            <li>Katta harflar (A-Z)</li>
+                            <li>Kichik harflar (a-z)</li>
+                            <li>Raqamlar (0-9)</li>
+                            <li>Maxsus belgilar (!@#$%^&*)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Yomon parol namunalari</h3>
+                        <p class="content-text">Quyidagi parollardan foydalanmang:</p>
+                        <ul class="content-list">
+                            <li>"123456" yoki "password" - eng ko'p ishlatiladigan va eng zaif parollar</li>
+                            <li>Shaxsiy ma'lumotlar: tug'ilgan sana, ism, familiya</li>
+                            <li>Oddiy so'zlar yoki frazalar</li>
+                            <li>Bir nechta hisoblar uchun bir xil parol</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Parol menejerlardan foydalaning (Bitwarden, LastPass, KeePass). Ular sizga har bir hisob uchun noyob, kuchli parol yaratishga va xavfsiz saqlashga yordam beradi.
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Parol menejerlarining afzalliklari</h3>
+                        <ul class="content-list">
+                            <li>Barcha parollaringizni bir joyda saqlaydi</li>
+                            <li>Avtomatik ravishda kuchli parollar yaratadi</li>
+                            <li>Parollarni avtomatik to'ldiradi (phishingga qarshi himoya)</li>
+                            <li>Parollarni muntazam yangilashni eslatadi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Parol tekshirish vositalari</h3>
+                        <p class="content-text">Parolingizning mustahkamligini tekshirish uchun quyidagi vositalardan foydalanishingiz mumkin:</p>
+                        <ul class="content-list">
+                            <li>Have I Been Pwned - Parolingiz ma'lumotlar oqimida chiqqanligini tekshirish</li>
+                            <li>Bitwarden Password Strength Test - Parol kuchini tekshirish</li>
+                            <li>Google Password Manager - Chrome brauzerining o'z parol menejeri</li>
+                        </ul>
+                    </div>
+                `
+            },
+            3: {
+                title: "Ransomware: Tahdid va himoya",
+                category: "Malware Protection",
+                readTime: "15 daqiqa",
+                level: "O'rta", 
+                lastUpdated: "2023-09-22",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Ransomware nima?</h3>
+                        <p class="content-text">Ransomware - bu foydalanuvchi ma'lumotlarini shifrlaydigan va shifrni ochish uchun to'lov talab qiladigan zararli dastur turi. U odatda elektron pochta orqali, zararli veb-sahifalar orqali yoki tarmoq zaifliklari orqali tarqaladi.</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> 2023-yilning birinchi yarmida ransomware hujumlari 37% ga o'sdi. O'rtacha to'lov talabi $170,000 ni tashkil qildi.
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Ransomware turlari</h3>
+                        <ul class="content-list">
+                            <li><strong>Encrypting Ransomware</strong> - Ma'lumotlarni shifrlaydi va to'lov talab qiladi</li>
+                            <li><strong>Locker Ransomware</strong> - Tizimga kirishni bloklaydi</li>
+                            <li><strong>Scareware</strong> - Soxta ogohlantirishlar orqali foydalanuvchini qo'rqitadi</li>
+                            <li><strong>Doxware</strong> - Ma'lumotlarni oshkor qilish bilan tahdid qiladi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Himoya choralari</h3>
+                        <ul class="content-list">
+                            <li>Muntazam ravishda ma'lumotlarning zaxira nusxasini oling</li>
+                            <li>Tizim va dasturlarni yangilang</li>
+                            <li>Kuchli antivirus va anti-ransomware dasturlarini o'rnating</li>
+                            <li>Noma'lum manbalardan kelgan elektron pochta va havolalarga ehtiyot bo'ling</li>
+                            <li>Tarmoq segmentatsiyasini qo'llang</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Hujumga uchragan taqdirda</h3>
+                        <ul class="content-list">
+                            <li>Tarmoqdan ajrating (internet va mahalliy tarmoq)</li>
+                            <li>Hujum haqida IT xavfsizlik bo'limiga xabar bering</li>
+                            <li>To'lov qilmang (kafolat yo'q)</li>
+                            <li>Qonuniy organlarga murojaat qiling</li>
+                            <li>Zaxira nusxadan tiklang</li>
+                        </ul>
+                    </div>
+                `
+            },
+            4: {
+                title: "2-qadamli autentifikatsiya (2FA)",
+                category: "Account Security",
+                readTime: "6 daqiqa",
+                level: "Boshlang'ich",
+                lastUpdated: "2023-11-10",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">2FA nima?</h3>
+                        <p class="content-text">2-qadamli autentifikatsiya (2FA) - bu hisobingizga kirish uchun ikkita turdagi tasdiqlashni talab qiladigan himoya mexanizmi. Birinchi qadam odatda parol, ikkinchi qadam esa qo'shimcha tasdiqlash (SMS kodi, autentifikator ilovasi, biometrik ma'lumot).</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">2FA turlari</h3>
+                        <ul class="content-list">
+                            <li><strong>SMS yoki telefonga kod</strong> - Eng keng tarqalgan, lekin SIM-karta o'g'irlash hujumiga moyil</li>
+                            <li><strong>Autentifikator ilovalari</strong> (Google Authenticator, Authy) - Offline ishlaydi, xavfsizroq</li>
+                            <li><strong>Fizik kalitlar</strong> (YubiKey, Titan Key) - Eng xavfsiz usul</li>
+                            <li><strong>Biometrik autentifikatsiya</strong> - Barmoq izi, yuz taniqlash</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Muhim hisoblaringiz (email, bank, ijtimoiy tarmoqlar) uchun autentifikator ilovalaridan foydalaning. SMS kodidan ko'ra xavfsizroq.
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Qanday yoqish kerak?</h3>
+                        <ul class="content-list">
+                            <li>Google hisobi: Settings → Security → 2-Step Verification</li>
+                            <li>Facebook: Settings → Security and Login → Use two-factor authentication</li>
+                            <li>Instagram: Settings → Security → Two-Factor Authentication</li>
+                            <li>Telegram: Settings → Privacy and Security → Two-Step Verification</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> 2FA ni yoqqaningizda, zaxira kodlarini yozib oling yoki xavfsiz joyga saqlang. Telefon yo'qolsa, hisobingizga kirish imkoniyatingiz yo'qolishi mumkin.
+                    </div>
+                `
+            },
+            5: {
+                title: "Tarmoq xavfsizligi asoslari",
+                category: "Network Security",
+                readTime: "12 daqiqa",
+                level: "O'rta",
+                lastUpdated: "2023-10-30",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Uy tarmog'ini himoya qilish</h3>
+                        <p class="content-text">Uy tarmog'ingiz - bu sizning barcha qurilmalaringizni birlashtiruvchi markaz. Agar u himoyalanmagan bo'lsa, hujumchilar smartfon, noutbuk, aqlli televizor va boshqa qurilmalaringizga kirish imkoniyatiga ega bo'lishi mumkin.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Asosiy himoya choralari</h3>
+                        <ul class="content-list">
+                            <li><strong>Router parolini o'zgartiring</strong> - Standart admin/parol kombinatsiyasini o'zgartiring</li>
+                            <li><strong>WPA2/WPA3 shifrlash</strong> - Eskirgan WEP shifrlashdan foydalanmang</li>
+                            <li><strong>SSID ni yashiring</strong> - Tarmoq nomini ko'rinmas qiling</li>
+                            <li><strong>MAC filtrlash</strong> - Faqat ma'lum qurilmalarga ruxsat bering</li>
+                            <li><strong>Firewall yoqing</strong> - Routerdagi firewall funksiyasini faollashtiring</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">WiFi xavfsizligi</h3>
+                        <p class="content-text">Ochiq WiFi tarmoqlari katta xavf tug'diradi. Jamoat joylarida:</p>
+                        <ul class="content-list">
+                            <li>VPN dan foydalaning</li>
+                            <li>Bank operatsiyalarini ochiq WiFi da bajarmang</li>
+                            <li>Avtomatik ulanib qolishni o'chiring</li>
+                            <li>Shubhali tarmoqlarga ulanmang</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Routeringizning firmware versiyasini muntazam yangilang. Ko'pincha yangilanishlar xavfsizlik zaifliklarini yopadi.
+                    </div>
+                `
+            },
+            6: {
+                title: "Shifrlash (Encryption) texnologiyalari",
+                category: "Data Protection",
+                readTime: "18 daqiqa",
+                level: "O'rta",
+                lastUpdated: "2023-11-12",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Shifrlash nima?</h3>
+                        <p class="content-text">Shifrlash - bu ma'lumotlarni maxsus algoritmlar yordamida kodlash jarayoni bo'lib, faqat maxsus kalitga ega bo'lgan shaxslar ularni o'qiy oladi. Bu ma'lumotlarni o'g'irlash yoki o'zgartirishdan himoya qiladi.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Asosiy shifrlash turlari</h3>
+                        <ul class="content-list">
+                            <li><strong>Simmetrik shifrlash</strong> - Bir xil kalit bilan shifrlash va shifrdan chiqarish (AES, DES)</li>
+                            <li><strong>Asimmetrik shifrlash</strong> - Ochiq va maxfiy kalitlar juftligi (RSA, ECC)</li>
+                            <li><strong>Hash funksiyalari</strong> - Bir tomondi shifrlash (SHA-256, MD5)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Qayerda qo'llaniladi?</h3>
+                        <ul class="content-list">
+                            <li><strong>SSL/TLS</strong> - Veb-saytlarda (https://)</li>
+                            <li><strong>VPN</strong> - Tarmoq trafigini himoya qilish</li>
+                            <li><strong>Disk shifrlash</strong> - BitLocker, FileVault, VeraCrypt</li>
+                            <li><strong>Messengerlar</strong> - Signal, Telegram (secret chats), WhatsApp</li>
+                            <li><strong>Kriptovalyutalar</strong> - Blockchain texnologiyasi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Ma'lumotlaringizni saqlash uchun VeraCrypt yoki BitLocker kabi disk shifrlash dasturlaridan foydalaning. Bu qurilma o'g'irlansa ham ma'lumotlaringizni himoya qiladi.
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> Shifrlash kalitlarini xavfsiz saqlang. Agar kalitingizni yo'qotsangiz, ma'lumotlaringizga kirish imkoniyatingiz yo'qoladi.
+                    </div>
+                `
+            },
+            7: {
+                title: "Malware tahlili asoslari",
+                category: "Malware Analysis",
+                readTime: "25 daqiqa",
+                level: "Ilg'or",
+                lastUpdated: "2023-10-05",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Malware tahlili nima?</h3>
+                        <p class="content-text">Zararli dasturlarni tahlil qilish - bu ularning ishlash mexanizmini, maqsadini va zararli ta'sirini aniqlash uchun zararli dasturlarni o'rganish jarayoni. Bu xavfsizlik mutaxassislariga yangi tahdidlarni aniqlash va ularga qarshi himoya yaratishga yordam beradi.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Tahlil turlari</h3>
+                        <ul class="content-list">
+                            <li><strong>Statik tahlil</strong> - Dasturni ishga tushirmasdan kodni tahlil qilish</li>
+                            <li><strong>Dinamik tahlil</strong> - Sandbox muhitida ishga tushirib kuzatish</li>
+                            <li><strong>Xotira tahlili</strong> - Ishga tushirilgan dasturning xotira holatini tahlil qilish</li>
+                            <li><strong>Tarmoq tahlili</strong> - Dasturning tarmoqdagi faoliyatini kuzatish</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Tahlil vositalari</h3>
+                        <ul class="content-list">
+                            <li><strong>IDA Pro, Ghidra</strong> - Reverse engineering vositalari</li>
+                            <li><strong>Wireshark</strong> - Tarmoq trafikini tahlil qilish</li>
+                            <li><strong>Process Monitor, Process Explorer</strong> - Tizim jarayonlarini kuzatish</li>
+                            <li><strong>VirtualBox, VMware</strong> - Sandbox muhitlari</li>
+                            <li><strong>VirusTotal, Hybrid Analysis</strong> - Online tahlil platformalari</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> Malware tahlilini faqat izolyatsiyalangan laboratoriya muhitida (sandbox) o'tkazing. Haqiqiy tizimda ishga tushirish butun tarmoqni zararlashi mumkin.
+                    </div>
+                `
+            },
+            8: {
+                title: "Zaifliklar skanerlash",
+                category: "Vulnerability Assessment",
+                readTime: "20 daqiqa",
+                level: "Ilg'or",
+                lastUpdated: "2023-11-08",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Zaiflik skanerlash nima?</h3>
+                        <p class="content-text">Zaifliklarni skanerlash - bu tizim, tarmoq yoki dasturiy ta'minotdagi xavfsizlik kamchiliklarini aniqlash, tasniflash va baholash jarayoni. Bu proaktiv himoya strategiyasining muhim qismidir.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Skanerlash bosqichlari</h3>
+                        <ul class="content-list">
+                            <li><strong>Ruxsat olish</strong> - Test o'tkazish uchun yozma ruxsat</li>
+                            <li><strong>Ma'lumot to'plash</strong> - Tizim haqida ma'lumot yig'ish</li>
+                            <li><strong>Zaifliklarni aniqlash</strong> - Avtomatik vositalar yordamida</li>
+                            <li><strong>Baholash</strong> - Zaifliklarning xavf darajasini aniqlash</li>
+                            <li><strong>Hisobot</strong> - Topilgan zaifliklar haqida hisobot tayyorlash</li>
+                            <li><strong>Yopish</strong> - Zaifliklarni bartaraf etish</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Skanerlash vositalari</h3>
+                        <ul class="content-list">
+                            <li><strong>Nessus, OpenVAS</strong> - Keng qo'llaniladigan zaiflik skanerlash vositalari</li>
+                            <li><strong>Nmap</strong> - Tarmoq skanerlash va port taraması</li>
+                            <li><strong>Burp Suite, OWASP ZAP</strong> - Veb-ilovalarni test qilish</li>
+                            <li><strong>Metasploit</strong> - Penetration testlash framework'i</li>
+                            <li><strong>Wireshark</strong> - Tarmoq trafikini tahlil qilish</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Zaifliklarni muntazam skanerlang. Yangi zaifliklar har kuni paydo bo'ladi. Odatda oylik skanerlash tavsiya etiladi.
+                    </div>
+                `
+            },
+            9: {
+                title: "Social Engineering usullari",
+                category: "Social Engineering",
+                readTime: "14 daqiqa",
+                level: "O'rta",
+                lastUpdated: "2023-10-25",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Social Engineering nima?</h3>
+                        <p class="content-text">Ijtimoiy muhandislik - bu odamlarni psixologik ta'sir qilish orqali ularning maxfiy ma'lumotlarini olish yoki ma'lum bir harakatni bajarishga undash san'ati. Bu ko'pincha texnik hujumlardan ko'ra samaraliroq bo'ladi, chunki u inson omiliga qaratilgan.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Keng tarqalgan usullar</h3>
+                        <ul class="content-list">
+                            <li><strong>Pretexting</strong> - Soxta sahna yaratish va ma'lumot olish</li>
+                            <li><strong>Baiting</strong> - Qiziqarli taklif bilan vasvasaga solish</li>
+                            <li><strong>Quid pro quo</strong> - "Xizmat uchun xizmat" printsipi</li>
+                            <li><strong>Tailgating</strong> - Ruxsatsiz binoga kirish</li>
+                            <li><strong>Phishing</strong> - Soxta elektron pochta orqali</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Qanday himoya qilish kerak?</h3>
+                        <ul class="content-list">
+                            <li>Noma'lum odamlarning so'rovlariga ehtiyot bo'ling</li>
+                            <li>Hech kimga parolingizni aytmang (hatto IT xodimiga ham)</li>
+                            <li>Shaxsiy ma'lumotlaringizni ijtimoiy tarmoqlarda baham ko'rmang</li>
+                            <li>Ofisda ruxsatsiz shaxslarga e'tibor bering</li>
+                            <li>Xodimlarni muntazam ravishda o'qitish va testlash</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> Social engineering hujumlari odatda odamning ishonchi va yaxshi niyatidan foydalanadi. Har doim "nima uchun?" degan savolni o'zingizdan so'rang.
+                    </div>
+                `
+            },
+            10: {
+                title: "Bulut xavfsizligi",
+                category: "Cloud Security",
+                readTime: "16 daqiqa",
+                level: "O'rta",
+                lastUpdated: "2023-11-15",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Bulut xavfsizligi nima?</h3>
+                        <p class="content-text">Bulut xavfsizligi - bulut computing muhitida ma'lumotlarni, ilovalarni va infratuzilmani himoya qilish bo'yicha amallar va texnologiyalar to'plami. Bu an'anaviy xavfsizlikdan farq qiladi, chunki ma'lumotlar sizning fizik nazoratingizdan tashqarida saqlanadi.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Asosiy xavflar</h3>
+                        <ul class="content-list">
+                            <li><strong>Noto'g'ri konfiguratsiya</strong> - Eng keng tarqalgan xavf (85% holatlarda)</li>
+                            <li><strong>Zaif kirish nazorati</strong> - Kuchli parol va 2FA yo'qligi</li>
+                            <li><strong>API xavfsizligi</strong> - Zaif API interfeyslari</li>
+                            <li><strong>Ma'lumotlar oqishi</strong> - Noto'g'ri ruxsatlar tufayli</li>
+                            <li><strong>Hisob o'g'irlash</strong> - Foydalanuvchi hisoblariga ruxsatsiz kirish</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Himoya strategiyalari</h3>
+                        <ul class="content-list">
+                            <li><strong>Shared responsibility model</strong> - Mas'uliyatni taqsimlashni tushunish</li>
+                            <li><strong>Kuchli autentifikatsiya</strong> - MFA va IAM yechimlari</li>
+                            <li><strong>Ma'lumotlarni shifrlash</strong> - Tinch va harakatdagi ma'lumotlarni shifrlash</li>
+                            <li><strong>Muntazam audit</strong> - Konfiguratsiya va ruxsatlarni tekshirish</li>
+                            <li><strong>Monitoring</strong> - Faoliyatni doimiy kuzatish</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Bulut provayderingizning xavfsizlik sozlamalarini muntazam tekshiring. Ko'pincha standart sozlamalar etarli himoya bermaydi.
+                    </div>
+                `
+            },
+            11: {
+                title: "IoT qurilmalari xavfsizligi",
+                category: "IoT Security",
+                readTime: "12 daqiqa",
+                level: "O'rta",
+                lastUpdated: "2023-11-03",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">IoT xavfsizligi nima?</h3>
+                        <p class="content-text">Internet of Things (IoT) qurilmalari - bu internet orqali ulanadigan aqlli qurilmalar (smart uy asboblari, monitoring kameralari, sog'liqni saqlash qurilmalari). Ularning ko'pchiligi zaif xavfsizlik bilan ishlab chiqarilgan, bu ularni hujum uchun osma nishonga aylantiradi.</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> 2023-yil holatiga ko'ra, dunyoda 15 milliarddan ortiq IoT qurilmasi mavjud. Ularning 70% dan ko'pi xavfsizlik zaifliklariga ega.
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Asosiy xavflar</h3>
+                        <ul class="content-list">
+                            <li><strong>Zaif parollar</strong> - Standart yoki kuchli bo'lmagan parollar</li>
+                            <li><strong>Eskirgan firmware</li>
+                            <li><strong>Shifrlashning yo'qligi</strong> - Ma'lumotlar ochiq tarqalishi</li>
+                            <li><strong>Zaif tarmoq xizmatlari</strong> - Portlar ochiq qoldirilishi</li>
+                            <li><strong>Fizik xavflar</strong> - Qurilmaning o'g'irlanishi yoki manipulyatsiyasi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Himoya choralari</h3>
+                        <ul class="content-list">
+                            <li>Har doim dastlabki parolni o'zgartiring</li>
+                            <li>Firmware ni muntazam yangilang</li>
+                            <li>IoT qurilmalarini alohida tarmoqqa joylashtiring (segmentatsiya)</li>
+                            <li>Firewall orqali cheklangan ruxsatlar bering</li>
+                            <li>Ishlatilmayotgan xususiyatlarni o'chiring</li>
+                            <li>Fizik xavfsizlikni ta'minlang</li>
+                        </ul>
+                    </div>
+                `
+            },
+            12: {
+                title: "Pentest (Penetration Testing) asoslari",
+                category: "Penetration Testing",
+                readTime: "30 daqiqa",
+                level: "Ilg'or",
+                lastUpdated: "2023-10-18",
+                author: "dr4x0n Security Team",
+                content: `
+                    <div class="content-section">
+                        <h3 class="section-title">Penetration Testing nima?</h3>
+                        <p class="content-text">Penetration test (pentest) - bu tizimning xavfsizligini baholash uchun unga hujum qilishni simulyatsiya qilish jarayoni. Bu haqiqiy hujumchilar qiladigan usullardan foydalanib, zaifliklarni aniqlash va ularni bartaraf etish imkoniyatini beradi.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Pentest bosqichlari</h3>
+                        <ul class="content-list">
+                            <li><strong>Ruxsat olish va rejalashtirish</strong> - Qonuniy shartnoma va doira aniqlash</li>
+                            <li><strong>Ma'lumot to'plash</strong> (Reconnaissance) - Maqsad haqida ma'lumot yig'ish</li>
+                            <li><strong>Zaifliklarni aniqlash</strong> (Scanning) - Avtomatik va qo'lda skanerlash</li>
+                            <li><strong>Zaifliklardan foydalanish</strong> (Exploitation) - Aniqlangan zaifliklardan foydalanish</li>
+                            <li><strong>Post-exploitation</strong> - Kirish huquqini saqlab qolish va boshqa tizimlarga o'tish</li>
+                            <li><strong>Hisobot</strong> - Topilgan zaifliklar va tavsiyalar haqida hisobot</li>
+                            <li><strong>Tozalash</strong> - Test davrida yaratilgan izlarni olib tashlash</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3 class="section-title">Pentest turlari</h3>
+                        <ul class="content-list">
+                            <li><strong>Black Box</strong> - Testerda ma'lumot yo'q</li>
+                            <li><strong>White Box</strong> - Testerda to'liq ma'lumot mavjud</li>
+                            <li><strong>Gray Box</strong> - Cheklangan ma'lumot bilan</li>
+                            <li><strong>External</strong> - Tashqaridan hujum</li>
+                            <li><strong>Internal</strong> - Tarmoq ichkarisidan hujum</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box">
+                        <strong>MASLAHAT:</strong> Pentest faqat yozma ruxsatnoma asosida o'tkazilishi kerak. Ruxsatsiz test qilish qonuniy jazoga olib kelishi mumkin.
+                    </div>
+                    
+                    <div class="warning-box">
+                        <strong>DIQQAT:</strong> Pentest haqiqiy hujum emas. Maqsad tizimni buzish emas, balki uning zaifliklarini aniqlashdir. Kerak bo'lmagan zarar yetkazmaslik uchun ehtiyot bo'ling.
+                    </div>
+                `
+            }
+        };
+
+        // DOM elementlari
+        const mainPage = document.getElementById('mainPage');
+        const resultPage = document.getElementById('resultPage');
+        const topicsGrid = document.getElementById('topicsGrid');
+        const resultHeader = document.getElementById('resultHeader');
+        const resultContent = document.getElementById('resultContent');
+        const backButton = document.getElementById('backButton');
+        const homeLink = document.getElementById('homeLink');
+        const navHome = document.getElementById('navHome');
+
+        // Sahifani boshlang'ich holatga keltirish
+        function initPage() {
+            displayTopics();
+            
+            // Navigation tugmalarini sozlash
+            homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainPage();
+            });
+            
+            navHome.addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainPage();
+            });
+            
+            backButton.addEventListener('click', showMainPage);
+        }
+
+        // Mavzularni ekranga chiqarish
+        function displayTopics() {
+            topicsGrid.innerHTML = '';
+            
+            cyberSecurityTopics.forEach(topic => {
+                const categoryClass = `category-${topic.category}`;
+                const categoryText = topic.category === 'beginner' ? "Boshlang'ich" : 
+                                   topic.category === 'intermediate' ? "O'rta" : "Ilg'or";
+                
+                const topicCard = document.createElement('div');
+                topicCard.className = `topic-card ${topic.category}`;
+                topicCard.innerHTML = `
+                    <div class="topic-category ${categoryClass}">${categoryText}</div>
+                    <h3 class="topic-title">${topic.title}</h3>
+                    <p class="topic-description">${topic.description}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #636e72; font-size: 13px;">${topic.readTime} • ${topic.level}</span>
+                        <button class="info-button" data-id="${topic.id}">
+                            <span>Ma'lumot olish</span>
+                            <span>→</span>
+                        </button>
+                    </div>
+                `;
+                
+                topicsGrid.appendChild(topicCard);
+                
+                // Info tugmasiga event listener qo'shish
+                const infoButton = topicCard.querySelector('.info-button');
+                infoButton.addEventListener('click', () => {
+                    showTopicDetails(topic.id);
+                });
+            });
+        }
+
+        // Mavzu tafsilotlarini ko'rsatish
+        function showTopicDetails(topicId) {
+            const topic = topicDetails[topicId];
+            
+            if (!topic) {
+                alert("Bu mavzu haqida ma'lumot hozircha mavjud emas.");
+                return;
+            }
+            
+            // Sarlavha qismini to'ldirish
+            resultHeader.innerHTML = `
+                <h1 class="result-title">${topic.title}</h1>
+                <div class="result-meta">
+                    <div class="meta-item">
+                        <span>📚</span>
+                        <span>${topic.category}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span>${topic.readTime}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📊</span>
+                        <span>Daraja: ${topic.level}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>🔄</span>
+                        <span>Yangilangan: ${topic.lastUpdated}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>✍️</span>
+                        <span>${topic.author}</span>
+                    </div>
+                </div>
+                <p style="color: #b2bec3; font-size: 16px; line-height: 1.6;">Ushbu maqolada ${topic.title.toLowerCase()} haqida batafsil ma'lumot, himoya usullari va amaliy maslahatlar berilgan.</p>
+            `;
+            
+            // Kontent qismini to'ldirish
+            resultContent.innerHTML = topic.content;
+            
+            // Sahifalarni almashish
+            showResultPage();
+        }
+
+        // Asosiy sahifani ko'rsatish
+        function showMainPage() {
+            mainPage.style.display = 'block';
+            resultPage.style.display = 'none';
+            document.title = "dr4x0n - Kiberxavfsizlik Bilimlar Bazasi";
+        }
+
+        // Natija sahifasini ko'rsatish
+        function showResultPage() {
+            mainPage.style.display = 'none';
+            resultPage.style.display = 'block';
+            document.title = "dr4x0n - " + document.querySelector('.result-title').textContent;
+            
+            // Sahifa yuqorisiga scroll qilish
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Sahifa yuklanganda ishga tushirish
+        document.addEventListener('DOMContentLoaded', initPage);
+
+        // Qo'shimcha mavzu qo'shish imkoniyati (admin panel uchun asos)
+        window.addNewTopic = function(title, category, description, content) {
+            const newId = cyberSecurityTopics.length + 1;
+            cyberSecurityTopics.push({
+                id: newId,
+                title: title,
+                category: category,
+                description: description,
+                readTime: "10 daqiqa",
+                level: category === 'beginner' ? "Boshlang'ich" : 
+                       category === 'intermediate' ? "O'rta" : "Ilg'or"
+            });
+            
+            topicDetails[newId] = {
+                title: title,
+                category: "Yangi mavzu",
+                readTime: "10 daqiqa",
+                level: category === 'beginner' ? "Boshlang'ich" : 
+                       category === 'intermediate' ? "O'rta" : "Ilg'or",
+                lastUpdated: new Date().toISOString().split('T')[0],
+                author: "Foydalanuvchi",
+                content: content || `<div class="content-section"><p>${description}</p></div>`
+            };
+            
+            displayTopics();
+            return newId;
+        };
+    </script>
+</body>
+</html>
